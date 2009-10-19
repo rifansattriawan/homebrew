@@ -1,9 +1,9 @@
-require 'brewkit'
+require 'formula'
 
 class Freetype <Formula
-  @url='http://mirror.dknss.com/nongnu/freetype/freetype-2.3.9.tar.gz'
-  @homepage='http://freetype.sourceforge.net'
-  @md5='9c2744f1aa72fe755adda33663aa3fad'
+  url 'http://mirror.dknss.com/nongnu/freetype/freetype-2.3.9.tar.gz'
+  homepage 'http://freetype.sourceforge.net'
+  md5 '9c2744f1aa72fe755adda33663aa3fad'
   
   def options
     [

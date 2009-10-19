@@ -1,4 +1,4 @@
-require 'brewkit'
+require 'formula'
 
 class Bison <Formula
   url 'http://ftp.gnu.org/gnu/bison/bison-2.4.1.tar.bz2'

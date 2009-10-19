@@ -1,4 +1,4 @@
-require 'brewkit'
+require 'formula'
 
 class Groff <Formula
   url 'http://groff.ffii.org/groff/groff-1.20.1.tar.gz'
