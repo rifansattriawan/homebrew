@@ -7,9 +7,7 @@ class Node <Formula
   md5 '93279f1e4595558dacb45a78259b7739'
 
   # Stripping breaks dynamic loading
-  def skip_clean? path
-    true
-  end
+  skip_clean :all
 
   def install
     fails_with_llvm

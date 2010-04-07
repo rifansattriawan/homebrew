@@ -4,7 +4,7 @@ class Mutt <Formula
   url 'ftp://ftp.mutt.org/mutt/devel/mutt-1.5.20.tar.gz'
   homepage 'http://www.mutt.org/'
   md5 '027cdd9959203de0c3c64149a7ee351c'
-  
+
   depends_on 'tokyo-cabinet'
 
   def options
@@ -15,39 +15,34 @@ class Mutt <Formula
   end
 
   def patches
-    patches = []
-    if ARGV.include? '--sidebar-patch'
-      patches << 'http://lunar-linux.org/~tchan/mutt/patch-1.5.20.sidebar.20090619.txt'
-    end
-    if ARGV.include? '--trash-patch'
-      patches << 'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1'
-    end
-    patches
+    p = []
+    p << 'http://lunar-linux.org/~tchan/mutt/patch-1.5.20.sidebar.20090619.txt' \
+          if ARGV.include? '--sidebar-patch'
+    p << 'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1' \
+          if ARGV.include? '--trash-patch'
+    return p
   end
 
   def install
-      configure_args = [
-          "--prefix=#{prefix}",
-          "--disable-debug",
-          "--disable-dependency-tracking",
-          "--disable-warnings",
-          "--with-ssl",
-          "--with-sasl",
-          "--with-gnutls",
-          "--with-gss",
-          "--enable-imap",
-          "--enable-smtp",
-          "--enable-pop",
-          "--enable-hcache",
-          "--with-tokyocabinet",
+    system "./configure", "--disable-debug",
+                          "--disable-dependency-tracking",
+                          "--disable-warnings",
+                          "--prefix=#{prefix}",
+                          "--with-ssl",
+                          "--with-sasl",
+                          "--with-gnutls",
+                          "--with-gss",
+                          "--enable-imap",
+                          "--enable-smtp",
+                          "--enable-pop",
+                          "--enable-hcache",
+                          "--with-tokyocabinet",
 
-          # This is just a trick to keep 'make install' from trying to chgrp
-          # the mutt_dotlock file (which we can't do if we're running as an
-          # unpriviledged user)
-          "--with-homespool=.mbox"
-      ]
+                          # This is just a trick to keep 'make install' from trying to chgrp
+                          # the mutt_dotlock file (which we can't do if we're running as an
+                          # unpriviledged user)
+                          "--with-homespool=.mbox"
 
-    system "./configure", *configure_args
     system "make install"
   end
 end

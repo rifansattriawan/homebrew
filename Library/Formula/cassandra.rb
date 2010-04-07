@@ -4,7 +4,6 @@ class Cassandra <Formula
   url 'http://apache.mirroring.de/cassandra/0.6.3/apache-cassandra-0.6.3-bin.tar.gz'
   homepage 'http://cassandra.apache.org'
   md5 '5a6965a0450a5836d3f4e4456d870154'
-  version '0.6.3'
 
   def install
     (var+"lib/cassandra").mkpath

@@ -1,9 +1,12 @@
 require 'formula'
 
 class Xu4 <Formula
-  head 'http://xu4.svn.sourceforge.net/svnroot/xu4/trunk/u4',
+  url 'http://xu4.svn.sourceforge.net/svnroot/xu4/trunk/u4',
           :revision => '2725'
   homepage 'http://xu4.sourceforge.net/'
+  version '1.0beta4-pre'
+
+  head 'http://xu4.svn.sourceforge.net/svnroot/xu4/trunk/u4'
 
   depends_on 'sdl'
   depends_on 'sdl_mixer'

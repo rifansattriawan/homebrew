@@ -14,7 +14,7 @@ class Rinetd <Formula
 
     system "make"
     bin.install "rinetd"
-    (man+'man8').install "rinetd.8"
+    man8.install "rinetd.8"
     conf = etc+"rinetd.conf"
     conf.write(DATA.read) unless conf.exist?
   end

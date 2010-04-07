@@ -29,7 +29,7 @@ class Tesseract <Formula
 
     # 'make install' expects the language data files in the build directory
     d = Dir.getwd
-    TesseractEnglishData.new.brew { FileUtils.cp Dir["*"], "#{d}/tessdata/" }
+    TesseractEnglishData.new.brew { cp Dir["*"], "#{d}/tessdata/" }
 
     system "./configure", "--prefix=#{prefix}", "--disable-debug", "--disable-dependency-tracking"
     system "make install"

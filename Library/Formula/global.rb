@@ -11,7 +11,7 @@ class Global <Formula
     
     # we copy these in already
     Dir.chdir(share+'gtags') do
-      FileUtils.rm %w[README COPYING LICENSE INSTALL ChangeLog AUTHORS]
+      rm %w[README COPYING LICENSE INSTALL ChangeLog AUTHORS]
     end
   end
 end

@@ -8,9 +8,7 @@ class Virtuoso <Formula
   # If gawk isn't found, make fails deep into the process.
   depends_on 'gawk'
 
-  def skip_clean? path
-    true
-  end
+  skip_clean :all
 
   def caveats
     <<-EOS.undent

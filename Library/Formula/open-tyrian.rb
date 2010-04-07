@@ -6,9 +6,8 @@ class OpenTyrianData <Formula
 end
 
 class OpenTyrian <Formula
-  head 'http://opentyrian.googlecode.com/hg/', :revision =>  '9ddcd06e48'
+  url 'http://opentyrian.googlecode.com/hg/', :revision =>  '9ddcd06e48'
   homepage 'http://code.google.com/p/opentyrian/'
-  version 'trunk'
   
   depends_on 'sdl'
   depends_on 'sdl_net'
@@ -24,7 +23,7 @@ class OpenTyrian <Formula
   end
 
   def startup_script
-      return <<-END
+<<-END
 #!/bin/bash
 #{libexec}/opentyrian --data=#{libexec} $*
 END

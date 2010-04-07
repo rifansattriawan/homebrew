@@ -26,7 +26,7 @@ class Rogue <Formula
     end
 
     system "make install"
-    (man+'man6').install gzip("rogue.6")
+    man6.install gzip("rogue.6")
     libexec.mkdir
   end
 end

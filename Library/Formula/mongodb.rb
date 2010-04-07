@@ -14,9 +14,7 @@ class Mongodb <Formula
     version '1.4.4-i386'
   end
 
-  def skip_clean? path
-    true
-  end
+  skip_clean :all
 
   def install
     # Copy the prebuilt binaries to prefix
