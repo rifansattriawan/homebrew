@@ -1,10 +1,10 @@
 require 'formula'
 
 class Proctools <Formula
-  @version='0.4pre1'
-  @url='http://downloads.sourceforge.net/project/proctools/proctools/0.4pre1/proctools-0.4pre1.tar.gz'
-  @homepage='http://proctools.sourceforge.net/'
-  @md5='714e4350749c680a7806635632d524b1'
+  url 'http://downloads.sourceforge.net/project/proctools/proctools/0.4pre1/proctools-0.4pre1.tar.gz'
+  homepage 'http://proctools.sourceforge.net/'
+  version '0.4pre1'
+  md5 '714e4350749c680a7806635632d524b1'
 
   def patches
     base = "http://svn.macports.org/repository/macports/trunk/dports/sysutils/proctools/files"

@@ -11,10 +11,10 @@ require 'formula'
 # done.
 
 class Nethack <Formula
-  @url='http://downloads.sourceforge.net/project/nethack/nethack/3.4.3/nethack-343-src.tgz'
-  @homepage='http://www.nethack.org/index.html'
-  @version='3.4.3'
-  @md5='21479c95990eefe7650df582426457f9'
+  url 'http://downloads.sourceforge.net/project/nethack/nethack/3.4.3/nethack-343-src.tgz'
+  homepage 'http://www.nethack.org/index.html'
+  version '3.4.3'
+  md5 '21479c95990eefe7650df582426457f9'
 
   def patches
     DATA

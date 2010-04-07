@@ -11,7 +11,7 @@ class Activemq <Formula
 
   def startup_script
     <<-EOS.undent
-      #!/usr/bin/env bash
+      #!/bin/bash
       exec #{libexec}/bin/activemq
     EOS
   end

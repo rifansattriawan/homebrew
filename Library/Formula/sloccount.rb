@@ -6,7 +6,7 @@ class Sloccount <Formula
   md5 '09abd6e2a016ebaf7552068a1dba1249'
 
   def patches
-      DATA
+    DATA
   end
 
   depends_on 'md5sha1sum'

@@ -19,9 +19,7 @@ class Postgresql <Formula
     ]
   end
 
-  def skip_clean? path
-    true
-  end
+  skip_clean :all
 
   def install
     ENV.libxml2 if MACOS_VERSION >= 10.6

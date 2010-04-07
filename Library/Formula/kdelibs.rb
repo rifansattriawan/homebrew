@@ -27,8 +27,8 @@ class Kdelibs <Formula
 
   def install
     gettext = Formula.factory 'gettext'
-    FileUtils.mkdir('build')
-    FileUtils.cd('build')
+    mkdir('build')
+    cd('build')
     system "cmake .. #{std_cmake_parameters} -DCMAKE_PREFIX_PATH=#{gettext.prefix} -DBUNDLE_INSTALL_DIR=#{bin}"
     system "make install"
   end

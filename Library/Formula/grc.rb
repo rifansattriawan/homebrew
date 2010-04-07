@@ -1,16 +1,15 @@
 require 'formula'
 
-######################################################################### cook
 class Grc <Formula
-  @homepage='http://korpus.juls.savba.sk/~garabik/software/grc.html'
-  @url='http://korpus.juls.savba.sk/~garabik/software/grc/grc_1.3.tar.gz'
-  @md5='a4814dcee965c3ff67681f6b59e6378c'
+  homepage 'http://korpus.juls.savba.sk/~garabik/software/grc.html'
+  url 'http://korpus.juls.savba.sk/~garabik/software/grc/grc_1.3.tar.gz'
+  md5 'a4814dcee965c3ff67681f6b59e6378c'
 
   def install
     #TODO we should deprefixify since it's python and thus possible
     inreplace ['grc', 'grc.1'], '/etc', etc
     inreplace ['grcat', 'grcat.1'], '/usr/local', prefix
-    
+
     etc.install 'grc.conf'
     bin.install %w[grc grcat]
     (share+'grc').install Dir['conf.*']

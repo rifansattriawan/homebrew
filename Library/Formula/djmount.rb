@@ -13,8 +13,8 @@ class Djmount <Formula
 
   def caveats
     <<-EOS.undent
-    This depends on the MacFUSE installation from http://code.google.com/p/macfuse/
-    MacFUSE must be installed prior to installing this formula.
+      This depends on the MacFUSE installation from http://code.google.com/p/macfuse/
+      MacFUSE must be installed prior to installing this formula.
     EOS
   end
 
