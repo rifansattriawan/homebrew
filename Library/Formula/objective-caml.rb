@@ -19,6 +19,6 @@ class ObjectiveCaml <Formula
     ENV.deparallelize
     system "make opt"
     system "make opt.opt"
-    system "make install"
+    system "make install PREFIX=#{prefix}"
   end
 end

@@ -52,10 +52,14 @@ class Keg <Pathname
 
     link_dir('lib') do |path|
       case path.to_s
-      when /^pkgconfig/ then :mkpath
-      when /^php/ then :mkpath
-      when /^perl5/ then :mkpath
-      when /^python2\.6/ then :mkpath
+      when
+        # lib/language folders get explicitly created
+        /^pkgconfig/,
+        /^php/,
+        /^perl5/,
+        /^python2\.6/,
+        /^ocaml/
+        then :mkpath
       end
     end
 
