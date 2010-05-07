@@ -4,10 +4,10 @@ require 'formula'
 #  http://www.virtualbox.org/wiki/Mac%20OS%20X%20build%20instructions
 
 class Virtualbox <Formula
-  url 'http://download.virtualbox.org/virtualbox/3.1.6/VirtualBox-3.1.6-OSE.tar.bz2'
-  version '3.1.6-OSE'
+  url 'http://213.239.192.22/download/3.2.0_BETA2/VirtualBox-3.2.0_BETA2-OSE.tar.bz2'
+  version '3.2.0_BETA2-OSE'
   homepage 'http://www.virtualbox.org/'
-  md5 '6cb3c8161ad878c2a2732137c1621dc4'
+  md5 'b4ddc60205daa95536e040d8347d5052'
   
   depends_on "libidl"
   depends_on "openssl" # System-provided version is too old.
