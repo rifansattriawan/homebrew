@@ -8,10 +8,7 @@ class Uwsgi <Formula
   def install
     # Find the archs of the Python we are building against.
     # We remove 'ppc' support, so we can pass Intel-optimized CFLAGS.
-    archs = archs_for_command("python")
-    archs.delete :ppc7400
-    archs.delete :ppc64
-
+    archs = archs_for_command("python").intel
     flags = archs.collect{ |a| "-arch #{a}" }.join(' ')
 
     system "CFLAGS='#{flags}' LDFLAGS='#{flags}' python uwsgiconfig.py --build"

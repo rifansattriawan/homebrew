@@ -10,7 +10,7 @@ class Bazaar <Formula
     # If the python includes PPC support, then don't use Intel-
     # specific compiler flags
     archs = archs_for_command("python")
-    ENV.minimal_optimization if archs.include? :ppc64 or archs.include? :ppc7400
+    ENV.minimal_optimization if archs.ppc?
 
     # Make the manual before we install (mv) bzrlib
     system "make man1/bzr.1"

@@ -69,7 +69,7 @@ class Postgresql <Formula
     # have 64-bit support then linking will fail.
     framework_python = Pathname.new "/Library/Frameworks/Python.framework/Versions/Current/Python"
     return unless framework_python.exist?
-    unless (archs_for_command framework_python).include? :x86_64
+    unless (archs_for_command framework_python).is_64_bit?
       opoo "Detected a framework Python that does not have 64-bit support in:"
       puts <<-EOS.undent
           #{framework_python}

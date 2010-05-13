@@ -169,6 +169,26 @@ module ArchitectureListExtension
   def universal?
     self.include? :i386 and self.include? :x86_64
   end
+
+  def ppc?
+    self.include? :ppc64 or self.include? :ppc7400
+  end
+
+  def is_64_bit?
+    self.include? :x86_64
+  end
+
+  def intel
+    (self - [:ppc7400, :ppc64]).extend(ArchitectureListExtension)
+  end
+
+  def as_cflags
+    self.collect{|a| "-Wc,'-arch #{a}'"}.join(' ')
+  end
+
+  def as_ldflags
+    self.collect{|a| "-arch #{a}"}.join(' ')
+  end
 end
 
 # Returns array of architectures that the given command or library is built for.
