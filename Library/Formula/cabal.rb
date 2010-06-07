@@ -5,52 +5,52 @@ class Cabal <Formula
   homepage 'http://www.haskell.org/cabal/'
   md5 '4abd0933dff361ff69ee9288a211e4e1'
 
+  depends_on 'ghc'
+
   aka 'cabal-install'
-  depends_on :ghc
-
-  def install
-    unregister_broken_packages
-
-    File.chmod 0755, 'bootstrap.sh'
-    ENV['PREFIX'] = "#{prefix}"
-
-    system "./bootstrap.sh"
-    mv "#{bin}/cabal", "#{bin}/.cabal.bin"
-
-    (var + 'cabal').install cabal_config
-    bin.install cabal_wrapper
-
-    ohai "Updating cabal package list..."
-#    system "#{bin}/cabal", "update"
-  end
-
-  def unregister_broken_packages
-    `ghc-pkg --simple-output check`.split.each {|p| unregister_package p }
-  end
-
-  def unregister_package pkg_name
-    safe_system 'ghc-pkg', '--force', 'unregister', pkg_name
-  end
 
   def cabal_wrapper
-    File.open("cabal", "w") {|wrapper| wrapper.write <<-WRAPPER}
-#!/bin/sh
-export CABAL_CONFIG=#{var}/cabal/config
-#{bin}/.cabal.bin \$*
+    <<-WRAPPER.undent
+      #!/bin/sh
+      export CABAL_CONFIG=#{etc}/cabal/config
+      #{bin}/cabal.real \$*
     WRAPPER
-    "cabal"
   end
 
   def cabal_config
-    File.open("config", "w") {|config| config.write <<-CONFIG}
-remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
-remote-repo-cache: #{var}/cabal/packages
-user-install: False
-documentation: True
-build-summary: #{var}/cabal/logs/build.log
-install-dirs global
-  prefix: #{prefix}
+    <<-CONFIG.undent
+      remote-repo: hackage.haskell.org:http://hackage.haskell.org/packages/archive
+      remote-repo-cache: #{var}/cabal/packages
+      user-install: False
+      documentation: True
+      build-summary: #{var}/cabal/logs/build.log
+      install-dirs global
+        prefix: #{prefix}
     CONFIG
-    "config"
+  end
+
+  def install
+    # unregister broken packages
+    `ghc-pkg --simple-output check`.split.each do |p|
+      safe_system 'ghc-pkg', '--force', 'unregister', p
+    end
+    
+    File.chmod 0755, 'bootstrap.sh'
+    ENV['PREFIX'] = prefix
+    system "./bootstrap.sh"
+    
+    rm (etc+'cabal/config') # Remove existing config, if it exists
+    (etc+'cabal/config').write cabal_config
+
+    # Use a wrapper script to call cabal
+    mv "#{bin}/cabal", "#{bin}/cabal.real"
+    (bin+'cabal').write cabal_wrapper
+  end
+
+  def caveats
+    <<-EOS.undent
+    To update Cabal's package list:
+      cabal update
+    EOS
   end
 end
