@@ -33,6 +33,50 @@ class ConfigureTests < Test::Unit::TestCase
 end
 
 
+class UnknownCommandTests < Test::Unit::TestCase
+  def temporary_brew f
+    # Brew and install the given formula
+    # nostdout do
+      f.brew { yield }
+    # end
+
+    # Remove the brewed formula and double check
+    # that it did get removed. This lets multiple
+    # tests use the same formula name without
+    # stepping on each other.
+    if File.exist? f.prefix
+      keg=Keg.new f.prefix
+      keg.uninstall
+      assert !keg.exist?
+      assert !f.installed?
+    end
+  end
+
+  def test_detect_unknown_command
+    testball_class = Class.new(TestBall) do
+      @md5='71aa838a9e4050d1876a295a9e62cbe6'
+    end
+
+    read, write = IO.pipe
+    # I'm guessing this is not a good way to do this, but I'm no UNIX guru
+    ENV['HOMEBREW_ERROR_PIPE'] = write.to_i.to_s
+
+    f=testball_class.new
+    
+    temporary_brew f do
+      begin
+        safe_system "./notacommand"
+      rescue ExecutionError => e
+        puts e.class
+        puts e
+        puts e.ps
+        puts e.exit_status
+        flunk("Failure message.")
+      end
+    end
+  end
+end
+
 class InstallTests < Test::Unit::TestCase
   def temporary_install f
     # Brew and install the given formula

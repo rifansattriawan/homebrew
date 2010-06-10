@@ -67,8 +67,19 @@ module Homebrew
     fork do
       yield if block_given?
       args.collect!{|arg| arg.to_s}
-      exec(cmd, *args) rescue nil
-      exit! 1 # never gets here unless exec failed
+      begin
+        exec(cmd, *args)
+      rescue
+        # TODO - marshal the exception if a pipe exists
+        puts ENV['HOMEBREW_ERROR_PIPE']
+        raise
+      end
+      # rescue Exception => e
+      #   puts $?.exitstatus
+      #   puts e.class
+      #   puts e
+      # end
+      # exit! 1 # never gets here unless exec failed
     end
     Process.wait
     $?.success?
@@ -77,6 +88,7 @@ end
 
 # Kernel.system but with exceptions
 def safe_system cmd, *args
+  # TODO - check for a marshalled exception and use that, or wrap as an "inner exception"
   raise ExecutionError.new(cmd, args, $?) unless Homebrew.system(cmd, *args)
 end
 

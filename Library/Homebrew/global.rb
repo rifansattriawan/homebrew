@@ -44,11 +44,12 @@ RECOMMENDED_GCC_42 = (MACOS_VERSION >= 10.6) ? 5646 : 5577
 
 
 class ExecutionError <RuntimeError
-  attr :exit_status, :command
+  attr_reader :exit_status, :command, :ps
 
   def initialize cmd, args = [], es = nil
     @command = cmd
     super "Failure while executing: #{cmd} #{pretty(args)*' '}"
+    @ps = es
     @exit_status = es.exitstatus rescue 1
   end
 
