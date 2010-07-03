@@ -1,9 +1,9 @@
 require 'formula'
 
 class Mercurial <Formula
-  url 'http://mercurial.selenic.com/release/mercurial-1.5.1.tar.gz'
+  url 'http://mercurial.selenic.com/release/mercurial-1.6.tar.gz'
   homepage 'http://mercurial.selenic.com/downloads/'
-  md5 '22eac5602d777f9601e23700e641503f'
+  md5 'e97772cb424d29d9382c41daafa6f92d'
 
   def install
     # Make Mercurial into the Cellar.
