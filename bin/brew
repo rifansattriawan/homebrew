@@ -12,9 +12,6 @@ HOMEBREW_LIBRARY_PATH = (Pathname.new(__FILE__).realpath.dirname.parent+"Library
 $:.unshift(HOMEBREW_LIBRARY_PATH)
 require 'global'
 
-HOMEBREW_EXTERNAL_PATH = (Pathname.new(__FILE__).realpath.dirname.parent+"Library/Contributions/examples").to_s
-ENV['PATH'] += ":#{HOMEBREW_EXTERNAL_PATH}"
-
 case ARGV.first
 when '-h', '--help', '--usage', '-?', 'help', nil
   puts ARGV.usage
@@ -352,6 +349,9 @@ begin
     brew_doctor
 
   else
+    # Add example external commands to PATH before checking.
+    ENV['PATH'] += ":#{HOMEBREW_REPOSITORY}/Library/Contributions/examples"
+
     # Check for an external shell command
     if system "/usr/bin/which -s brew-#{arg}"
       # Add some Homebrew vars to the ENV
