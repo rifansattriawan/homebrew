@@ -11,6 +11,7 @@ class Openssl <Formula
   end
 
   def install
+    ENV.universal_binary
     ENV.j1
     system "./config", "--prefix=#{prefix}", "--openssldir=#{etc}",
                        "zlib-dynamic", "shared"
