@@ -1,9 +1,9 @@
 require 'formula'
 
 class Rvm <Formula
-  url 'http://rvm.beginrescueend.com/releases/rvm-0.1.40.tar.gz'
+  url 'http://rvm.beginrescueend.com/releases/rvm-0.1.41.tar.gz'
   homepage 'http://rvm.beginrescueend.com/'
-  md5 '2cff08697543c28267a11e89a1082a9a'
+  md5 'ceaffac29900d26a47a6c734e4f7c187'
 
   # Don't kill empty folders
   def skip_clean? path
