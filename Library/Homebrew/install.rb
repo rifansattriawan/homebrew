@@ -57,7 +57,6 @@ def install f
   f.deps.each do |dep|
     dep = Formula.factory dep
     if dep.keg_only?
-      puts "Keg only dependency: #{dep.name}"
       current = HOMEBREW_CELLAR+dep.name+"Current"
       if File.exist? current
         keg_prefix=current
