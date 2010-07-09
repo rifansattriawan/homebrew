@@ -248,7 +248,6 @@ class Formula
         used_by[dep] = _deps
       end
     end
-    
     return used_by
   end
 

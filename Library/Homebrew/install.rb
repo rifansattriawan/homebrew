@@ -57,9 +57,16 @@ def install f
   f.deps.each do |dep|
     dep = Formula.factory dep
     if dep.keg_only?
-      ENV.prepend 'LDFLAGS', "-L#{dep.lib}"
-      ENV.prepend 'CPPFLAGS', "-I#{dep.include}"
-      ENV.prepend 'PATH', "#{dep.bin}", ':'
+      puts "Keg only dependency: #{dep.name}"
+      current = HOMEBREW_CELLAR+dep.name+"Current"
+      if File.exist? current
+        keg_prefix=current
+      else
+        keg_prefix=dep.prefix
+      end
+      ENV.prepend 'LDFLAGS', "-L#{keg_prefix}/lib"
+      ENV.prepend 'CPPFLAGS', "-I#{keg_prefix}/include"
+      ENV.prepend 'PATH', "#{keg_prefix}/bin", ':'
       ENV.prepend 'PKG_CONFIG_PATH', dep.lib+'pkgconfig', ':'
     end
   end

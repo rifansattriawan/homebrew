@@ -19,7 +19,7 @@ module HomebrewArgvExtension
     require 'keg'
     @kegs ||= downcased_unique_named.collect do |name|
       d=HOMEBREW_CELLAR+name
-      dirs = d.children.select{ |pn| pn.directory? } rescue []
+      dirs = d.children.select{ |pn| pn.directory? and pn != HOMEBREW_CELLAR+name+'Current' } rescue []
       raise "#{name} is not installed" if not d.directory? or dirs.length == 0
       raise "#{name} has multiple installed versions" if dirs.length > 1
       Keg.new dirs.first
