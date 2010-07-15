@@ -7,7 +7,7 @@ class SshfsFuse < Formula
 
   depends_on 'pkg-config'
   depends_on 'glib'
-  
+
   def caveats
     <<-EOS.undent
     This depends on the MacFUSE installation from http://code.google.com/p/macfuse/
@@ -21,8 +21,14 @@ class SshfsFuse < Formula
   end
 
   def install
-    ENV.append "CFLAGS", "-O0 -g -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -I/usr/local/include -D__FreeBSD__=10 -DDARWIN_SEMAPHORE_COMPAT -DSSH_NODELAY_WORKAROUND"
-    ENV.append "LDFLAGS", "-Wl,-syslibroot,/Developer/SDKs/MacOSX10.6.sdk -arch x86_64 -L/usr/local/lib"
+    if MACOS_VERSION >= 10.6 and Hardware.is_64_bit?
+      arch = "x86_64"
+    else
+      arch = "i386"
+    end
+
+    ENV.append "CFLAGS", "-O0 -g -arch #{arch} -isysroot /Developer/SDKs/MacOSX#{MACOS_VERSION}.sdk -I/usr/local/include -D__FreeBSD__=10 -DDARWIN_SEMAPHORE_COMPAT -DSSH_NODELAY_WORKAROUND"
+    ENV.append "LDFLAGS", "-Wl,-syslibroot,/Developer/SDKs/MacOSX#{MACOS_VERSION}.sdk -arch #{arch} -L/usr/local/lib"
     system "./configure", "--disable-debug", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make install"
   end
