@@ -1,13 +1,17 @@
 require 'formula'
 
 class Ant <Formula
-  @url='http://www.ibiblio.org/pub/mirrors/apache/ant/binaries/apache-ant-1.7.1-bin.tar.gz'
-  @homepage='http://ant.apache.org/'
-  @md5='cc5777c57c4e8269be5f3d1dc515301c'
+  url 'http://www.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.gz'
+  homepage 'http://ant.apache.org/'
+  md5 'dc9cc5ede14729f87fe0a4fe428b9185'
 
   def install
-    prefix.install Dir['*']
-    Dir['bin/*.cmd'].each { |file| File.unlink file }
-    Dir['bin/*.bat'].each { |file| File.unlink file }
+    rm Dir['bin/*.{bat,cmd}']
+    libexec.install Dir['*']
+
+    bin.mkpath
+    Dir["#{libexec}/bin/*"].each do |f|
+      ln_s f, bin+File.basename(f)
+    end
   end
 end
