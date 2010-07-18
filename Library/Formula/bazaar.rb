@@ -4,8 +4,6 @@ class Bazaar <Formula
   url 'http://launchpadlibrarian.net/41811693/bzr-2.1.1.tar.gz'
   md5 'ab6b5e0cc449b27abac2b4d717afe09d'
   homepage 'http://bazaar-vcs.org/'
-  
-  aka :bzr
 
   def install
     # Find the archs of the Python we are building against.
