@@ -35,7 +35,8 @@ class Ruby <Formula
     # Make sure that install paths for this Ruby are "real folders" in the
     # HOMEBREW_PREFIX, so they survive between patchlevel updates.
     # which_version = ARGV.build_head? ? "1.9.2" : "1.9.1"
-    # which_arch = Dir["#{lib}/ruby/site_ruby/#{which_version}/*"].first
+    # which_arch = Dir["#{lib}/ruby/site_ruby/#{which_version}/*"].first.basename
+    # puts which_arch
     # (HOMEBREW_PREFIX+"lib/ruby/site_ruby/#{which_version}/#{which_arch}").mkpath
     # (HOMEBREW_PREFIX+"lib/ruby/vendor_ruby/#{which_version}/#{which_arch}").mkpath
   end
