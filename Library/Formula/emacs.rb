@@ -80,5 +80,6 @@ class Emacs <Formula
       system "make"
       system "make install"
     end
+    (HOMEBREW_PREFIX+"share/emacs/site-lisp").mkpath
   end
 end
