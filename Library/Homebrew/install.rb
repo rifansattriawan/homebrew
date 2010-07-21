@@ -136,15 +136,13 @@ def install f
   else
     # warn the user if stuff was installed outside of their PATH
     paths = ENV['PATH'].split(':').collect{|p| File.expand_path p}
-    [f.bin, f.sbin].each do |bin|
-      if bin.directory?
-        rootbin = (HOMEBREW_PREFIX+bin.basename).to_s
-        bin = File.expand_path bin
-        unless paths.include? rootbin
-          opoo "#{rootbin} is not in your PATH"
-          puts "You can amend this by altering your ~/.bashrc file"
-          show_summary_heading = true
-        end
+    [f.bin, f.sbin].select{|p|p.directory?}.each do |bin|
+      rootbin = (HOMEBREW_PREFIX+bin.basename).to_s
+      bin = File.expand_path bin
+      unless paths.include? rootbin
+        opoo "#{rootbin} is not in your PATH"
+        puts "You can amend this by altering your ~/.bashrc file"
+        show_summary_heading = true
       end
     end
 
