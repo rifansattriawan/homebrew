@@ -21,7 +21,7 @@ class Node <Formula
       s.gsub! '/opt/local/lib', '/usr/lib'
     end
 
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}", "--destdir=#{HOMEBREW_PREFIX}"
     system "make install"
   end
 end
