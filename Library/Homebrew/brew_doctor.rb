@@ -100,7 +100,7 @@ def check_gcc_versions
 
   if gcc_42 == nil
     puts <<-EOS.undent
-      We couldn't detect gcc 4.2.x. Some formulas require this compiler.
+      We couldn't detect gcc 4.2.x. Some formulae require this compiler.
 
     EOS
   elsif gcc_42 < RECOMMENDED_GCC_42
@@ -113,7 +113,7 @@ def check_gcc_versions
 
   if gcc_40 == nil
     puts <<-EOS.undent
-      We couldn't detect gcc 4.0.x. Some formulas require this compiler.
+      We couldn't detect gcc 4.0.x. Some formulae require this compiler.
 
     EOS
   elsif gcc_40 < RECOMMENDED_GCC_40
