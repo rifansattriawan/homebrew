@@ -3,6 +3,13 @@
 # To use, edit your .bashrc and add:
 #   source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
+_brew_formulae_and_aliases()
+{
+    local ff=$(ls $(brew --repository)/Library/Formula | sed "s/\.rb//g")
+    local af=$(ls $(brew --repository)/Library/Aliases 2> /dev/null | sed "s/\.rb//g")
+    echo "${ff} ${af}"
+}
+
 _brew_to_completion()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
@@ -18,7 +25,7 @@ _brew_to_completion()
         return
     }
 
-    # Find the previous non-switch word
+    # Find the first non-switch word; this will be the command
     local prev_index=$((COMP_CWORD - 1))
     local prev="${COMP_WORDS[prev_index]}"
     while [[ $prev == -* ]]; do
@@ -28,15 +35,24 @@ _brew_to_completion()
 
     case "$prev" in
     # Commands that take a formula
-    cat|deps|edit|fetch|home|homepage|info|install|log|options|uses)
-        local ff=$(ls $(brew --repository)/Library/Formula | sed "s/\.rb//g")
-        local af=$(ls $(brew --repository)/Library/Aliases 2> /dev/null | sed "s/\.rb//g")
-        COMPREPLY=( $(compgen -W "${ff} ${af}" -- ${cur}) )
+    cat|deps|edit|fetch|home|homepage|info|log|options|uses)
+        COMPREPLY=( $(compgen -W "$(_brew_formulae_and_aliases)" -- ${cur}) )
+        return
+        ;;
+    install)
+        local switches="--interactive --git --use-llvm --ignore-dependencies --HEAD"
+        local options=`brew options mysql | grep ^--`
+        COMPREPLY=( $(compgen -W "${switches} ${options} $(_brew_formulae_and_aliases)" -- ${cur}) )
         return
         ;;
     # Commands that take an existing brew
     abv|cleanup|link|list|ln|ls|remove|rm|uninstall|unlink)
         COMPREPLY=( $(compgen -W "$(ls $(brew --cellar))" -- ${cur}) )
+        return
+        ;;
+    # Other commands
+    create)
+        COMPREPLY=( $(compgen -W "--cache" -- ${cur}) )
         return
         ;;
     esac
