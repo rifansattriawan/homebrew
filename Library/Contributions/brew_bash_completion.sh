@@ -1,7 +1,7 @@
 # Bash completion script for brew(1)
 #
 # To use, edit your .bashrc and add:
-#   source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+#   source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 
 _brew_formulae_and_aliases()
 {
@@ -12,6 +12,7 @@ _brew_formulae_and_aliases()
 
 _brew_to_completion()
 {
+    COMPREPLY=()
     local cur="${COMP_WORDS[COMP_CWORD]}"
 
     # Subcommand list
@@ -22,7 +23,7 @@ _brew_to_completion()
         local ext=$(ls $(brew --repository)/Library/Contributions/examples |
                     sed -e "s/\.rb//g" -e "s/brew-//g")
         COMPREPLY=( $(compgen -W "${actions} ${ext}" -- ${cur}) )
-        return
+        return 0
     }
 
     # Find the first non-switch word; this will be the command
@@ -37,23 +38,19 @@ _brew_to_completion()
     # Commands that take a formula
     cat|deps|edit|fetch|home|homepage|info|log|options|uses)
         COMPREPLY=( $(compgen -W "$(_brew_formulae_and_aliases)" -- ${cur}) )
-        return
         ;;
     install)
         local switches="--interactive --git --use-llvm --ignore-dependencies --HEAD"
         local options=`brew options mysql | grep ^--`
         COMPREPLY=( $(compgen -W "${switches} ${options} $(_brew_formulae_and_aliases)" -- ${cur}) )
-        return
         ;;
     # Commands that take an existing brew
     abv|cleanup|link|list|ln|ls|remove|rm|uninstall|unlink)
         COMPREPLY=( $(compgen -W "$(ls $(brew --cellar))" -- ${cur}) )
-        return
         ;;
     # Other commands
     create)
         COMPREPLY=( $(compgen -W "--cache" -- ${cur}) )
-        return
         ;;
     esac
 }
